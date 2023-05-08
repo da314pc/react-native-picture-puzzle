@@ -62,12 +62,16 @@ export default function PicturePuzzle({
   }), [size];
   React.useEffect(() => throwOnInvalidPuzzlePieces(pieces), [pieces]);
 
-  const piecesPerRow = React.useMemo((): number => Math.sqrt(pieces.length), [pieces.length])
-
-  const pieceSize = React.useMemo((): number => {
+  var piecesPerRow = React.useMemo((): number => Math.sqrt(pieces.length), [pieces.length])
+  
+  piecesPerRow = Math.round(piecesPerRow)
+  
+  var pieceSize = React.useMemo((): number => {
     const baseSize = size / piecesPerRow;
     return baseSize - baseSize % PixelRatio.get();
   }, [size, piecesPerRow]);
+
+  pieceSize = Math.round(pieceSize)
 
   const consecutivePieceOpacities = React.useMemo(() => (
     [...Array(pieces.length)].map(() => new Animated.Value(0))
